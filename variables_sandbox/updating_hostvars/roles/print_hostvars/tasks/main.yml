@@ -1,0 +1,4 @@
+---
+- name: Print hostvars in role
+  ansible.builtin.debug:
+    var: hostvars
