@@ -1,0 +1,17 @@
+---
+- name: Test updating hostvars in playbook
+  hosts: localhost
+  tasks:
+    - name: Print original hostvars
+      ansible.builtin.debug:
+        var: hostvars
+
+    - name: Test role
+      include_role:
+        name: print_hostvars
+      vars:
+        "{{ hostvars[hostname]['new_var1'] }}": 'New_var1_added'
+
+    - name: Print current hostvars
+      ansible.builtin.debug:
+        var: hostvars
