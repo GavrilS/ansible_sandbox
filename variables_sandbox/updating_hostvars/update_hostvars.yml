@@ -1,17 +1,27 @@
 ---
 - name: Test updating hostvars in playbook
   hosts: localhost
+  gather_facts: true
   tasks:
     - name: Print original hostvars
       ansible.builtin.debug:
-        var: hostvars
+        var: '{{ hostvars[inventory_hostname] }}'
+
+    - name: Set fact
+      ansible.builtin.set_fact:
+        hostvars:
+          inventory_hostname:
+            new_var1: 'Test'
+        new_var1: 'Test'
 
     - name: Test role
       include_role:
         name: print_hostvars
-      vars:
-        "{{ hostvars[hostname]['new_var1'] }}": 'New_var1_added'
+      # vars:
+      #   hostvars:
+      #     inventory_hostname:
+      #       new_var1: 'New_var1'
 
     - name: Print current hostvars
       ansible.builtin.debug:
-        var: hostvars
+        var: '{{ hostvars[inventory_hostname] }}'
