@@ -2,3 +2,22 @@
 - name: Print hostvars in role
   ansible.builtin.debug:
     var: hostvars
+
+- name: Print hostvars in role
+  ansible.builtin.debug:
+    var: hostvars[inventory_hostname]['new_var1']
+
+- name: Print var
+  ansible.builtin.debug:
+    var: new_var1
+
+- name: Set fact 2
+  ansible.builtin.set_fact:
+    # hostvars:
+    #   inventory_hostname:
+    #     new_var2: 'Test2'
+    new_var2: 'Test2'
+
+- name: Print var2
+  ansible.builtin.debug:
+    var: hostvars[inventory_hostname]['new_var2']
